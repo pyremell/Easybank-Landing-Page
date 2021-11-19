@@ -16,7 +16,7 @@ body { // style resets
   color: $grayishBlue;
   line-height: 1.3;
   min-height: 300vh;
-  overflow-x: hidden;
+  overflow-x: hidden; // Removes horizontal scroll bars due to hero image overflow
 
   @include breakpoint-up(large) {
     font-size: $font-med;
@@ -139,19 +139,33 @@ a, a:visited, a:hover {
 
 // Button
 button, .button {
+  position: relative;
   display: inline-block;
   padding: 0.875rem 2.1875rem;
-  background: linear-gradient(to right, $limeGreen, $brightCyan);
-  color: white;
+  background-image: linear-gradient(to right, $limeGreen, $brightCyan);
   border: 0;
   border-radius: 50px;
   cursor: pointer;
+  color: white;
   font-weight: 700;
   font-size: $font-sm;
   transition: opacity 300ms ease-in-out;
+  overflow: hidden;
 
-    &:hover {
-      opacity: 0.75;
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background-color: rgba(255, 255, 255, 0.25);
+      opacity: 0;
+      transition: opacity 150ms ease-in-out;
+    }
+
+    &:hover::before {
+      opacity: 1;
     }
 }
 
